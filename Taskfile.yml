@@ -1,0 +1,52 @@
+---
+version: "3"
+
+tasks:
+  default:
+    cmds:
+      - task: check
+
+  setup:
+    desc: install requirements
+    cmds:
+      - npm install --global markdownlint-cli2 prettier
+      - python3 -m pip install  --user --requirement requirements.txt
+
+  check:
+    desc: check everything
+    cmds:
+      - task: markdownlint
+      - task: yamllint
+      - task: ansible-lint
+      - task: ansible-syntax
+      - task: ansible-check
+
+  tidy:
+    desc: fix style
+    cmds:
+      - prettier --write  --list-different --ignore-unknown .
+
+  markdownlint:
+    desc: check markdown
+    cmds:
+      - markdownlint-cli2 .
+
+  yamllint:
+    desc: check yaml
+    cmds:
+      - yamllint .
+
+  ansible-lint:
+    desc: check ansible
+    cmds:
+      - ansible-lint
+
+  ansible-syntax:
+    desc: syntax check ansible
+    cmds:
+      - ansible-playbook playbook.yml --syntax-check
+
+  ansible-check:
+    desc: dry run ansible
+    cmds:
+      - ansible-playbook playbook.yml --check
