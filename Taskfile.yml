@@ -9,7 +9,7 @@ tasks:
   setup:
     desc: install requirements
     cmds:
-      - npm install --global markdownlint-cli2 prettier
+      - npm install --global markdownlint-cli prettier
       - python3 -m pip install  --user --requirement requirements.txt
 
   check:
@@ -29,7 +29,7 @@ tasks:
   markdownlint:
     desc: check markdown
     cmds:
-      - markdownlint-cli2 .
+      - markdownlint .
 
   yamllint:
     desc: check yaml
